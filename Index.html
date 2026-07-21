@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+
+    <title>NFC Demo</title>
+
+    <script>function OpenNFC(){
+
+    location.href="nfc.html";
+
+}
+
+window.addEventListener("pageshow",function(){
+
+    let uid=sessionStorage.getItem("NFC_UID");
+
+    if(uid){
+
+        document.getElementById("txtUID").value=uid;
+
+        sessionStorage.removeItem("NFC_UID");
+
+    }
+
+});</script>
+
+</head>
+
+<body>
+
+    <h2>NFC UID</h2>
+
+    <input type="text" id="txtUID" readonly placeholder="請點一下開始感應" onclick="OpenNFC()" style="width:320px;height:40px;font-size:18px;">
+
+</body>
+
+</html>
