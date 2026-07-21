@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1">
+
+    <title>NFC Scan</title>
+
+</head>
+
+<body>
+
+    <h2>請靠近 NFC Tag</h2>
+
+    <div id="msg">
+
+        等待感應...
+
+    </div>
+
+    <script>StartNFC();
+
+async function StartNFC(){
+
+    if(!("NDEFReader" in window)){
+
+        document.getElementById("msg").innerHTML=
+        "此瀏覽器不支援 Web NFC";
+
+        return;
+    }
+
+    try{
+
+        const ndef=new NDEFReader();
+
+        await ndef.scan();
+
+        document.getElementById("msg").innerHTML=
+        "請將 NFC Tag 靠近手機";
+
+        ndef.onreading=(event)=>{
+
+            sessionStorage.setItem(
+                "NFC_UID",
+                event.serialNumber);
+
+            history.back();
+
+        };
+
+    }
+    catch(ex){
+
+        document.getElementById("msg").innerHTML=
+        ex.message;
+
+    }
+
+}</script>
+
+</body>
+
+</html>
